@@ -1,23 +1,28 @@
-import logo from './logo.svg';
 import './App.css';
 
+import { useModal } from './modal/useModal';
+
 function App() {
+  const { open } = useModal();
+
+  const onClick = async () => {
+    const result = await open({
+      header: <h3>Do you like the article?</h3>,
+      content: (
+        <div>
+          <p>Followe me on Medium and clap the Article!</p>
+        </div>
+      ),
+      confirmText: 'Of Course :)',
+      rejectText: 'No :(',
+    });
+    
+    console.log(result ? 'Confirmed' : 'Rejected');
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button onClick={onClick}>Confirm popup</button>
     </div>
   );
 }
